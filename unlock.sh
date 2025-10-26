@@ -1,5 +1,5 @@
 #!/bin/bash
-. /srv/restic-repo/scripts/env.sh
+./env.sh
 
 declare -n REPO=${1}_REPOSITORY_FILE
 declare -n PASS=${1}_PASSWORD_FILE
