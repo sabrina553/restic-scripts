@@ -1,8 +1,8 @@
 #!/bin/bash
 cd "$(dirname "${BASH_SOURCE[0]}")" || exit
-. env.sh
+. functions/env.sh
 
-case $2 in
+case $1 in
 
     backup)
         . functions/backup.sh "$2" "$3"
@@ -25,6 +25,6 @@ case $2 in
         ;;
    
     *)
-        echo "Error: ${2} not recognised"
+        echo "Error: ${1} not recognised"
         ;;
 esac
