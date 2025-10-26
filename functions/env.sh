@@ -11,10 +11,15 @@ export RPI_REPOSITORY_FILE="identities/RPI_REPO"
 export RPI_PASSWORD_FILE="identities/RPI_PASSWORD"
 export RPI_REMOVE_POLICY="--keep-daily 30 --keep-weekly 8 --keep-monthly 12 --keep-yearly 100 --keep-last 4"
 
-# sapphire pi info
+# sapphire main info
 export SAPPHIRE_REPOSITORY_FILE="identities/SAPPHIRE_REPO"
 export SAPPHIRE_PASSWORD_FILE="identities/SAPPHIRE_PASSWORD"
 export SAPPHIRE_REMOVE_POLICY="--keep-daily 30 --keep-weekly 8 --keep-monthly 12 --keep-yearly 100 --keep-last 4"
+
+# sapphire immich info
+export SAPPHIRE_IMMICH_REPOSITORY_FILE="identities/SAPPHIRE_IMMICH_REPO"
+export SAPPHIRE_IMMICH_PASSWORD_FILE="identities/SAPPHIRE_IMMICH_PASSWORD"
+export SAPPHIRE_IMMICH_REMOVE_POLICY="--keep-daily 30 --keep-weekly 8 --keep-monthly 12 --keep-yearly 100 --keep-last 4"
 
 # files to include/exclude/cache
 export MAIN_INCLUDE_FILE_PATH="configs/MAIN_include"
