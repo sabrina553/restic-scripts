@@ -1,6 +1,6 @@
 #!/bin/bash
-. /srv/restic-repo/scripts/unlock.sh "$1"
-. /srv/restic-repo/scripts/unlock.sh "$2"
+. functions/unlock.sh "$1"
+. functions/unlock.sh "$2"
 
 declare -n SOURCE_REPO=${1}_REPOSITORY_FILE
 declare -n SOURCE_PASS=${1}_PASSWORD_FILE

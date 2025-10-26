@@ -19,7 +19,7 @@ Where my scripts have diverged from linucksrox and are unique, is the use of inp
 
 for example 
 
-`./copy.sh LOCAL RPI` will copy the snapshots from my server to my raspberry pi, and flexibility of 2^3 inputs. 
+`./main.sh copy LOCAL RPI` will copy the snapshots from my server to my raspberry pi, and flexibility of 2^3 inputs. 
 
 ### Environment Variables 
 
@@ -31,23 +31,23 @@ moreover, and importantly as of the time of wrting, the local Identities directo
 ### CronJobs (Server-side)
 ```bash
 # Run restic backup at 6:30 and 18:30 every day
-30 6,18 * * * bash /srv/restic-repo/scripts/backup.sh LOCAL MAIN >> /srv/restic-repo/scripts/logs/restic_backup.log 2>&1
+30 6,18 * * * bash /srv/restic-repo/scripts/main.sh backup LOCAL MAIN >> /srv/restic-repo/scripts/logs/restic_backup.log 2>&1
 # run raspi copy of snapshots at 7:00 and 19:00 every day
-0 7,19 * * * bash /srv/restic-repo/scripts/copy.sh LOCAL RPI >> /srv/restic-repo/scripts/logs/restic_backup.log 2>&1
+0 7,19 * * * bash /srv/restic-repo/scripts/main.sh copy LOCAL RPI >> /srv/restic-repo/scripts/logs/restic_backup.log 2>&1
 
 # Run restic check every Thursday at 14:00 (optionally schedule a system reboot in root's crontab 10 minutes before this runs >
-0 14 * * 4 bash /srv/restic-repo/scripts/check.sh LOCAL >> /srv/restic-repo/scripts/logs/restic_backup.log 2>&1
+0 14 * * 4 bash /srv/restic-repo/scripts/main.sh check LOCAL >> /srv/restic-repo/scripts/logs/restic_backup.log 2>&1
 # Run restic check every Thursday at 14:30 (optionally schedule a system reboot in root's crontab 10 minutes before this runs >
-30 14 * * 4 bash /srv/restic-repo/scripts/check.sh RPI >> /srv/restic-repo/scripts/logs/restic_backup.log 2>&1
+30 14 * * 4 bash /srv/restic-repo/scripts/main.sh check RPI >> /srv/restic-repo/scripts/logs/restic_backup.log 2>&1
 ```
 
 ### More examples
 ```bash
-./backup.sh <REPO> <METHOD> # Backup to the local repository, using method MAIN. as assigned in the env. "method" i,e what files are backed up is in configs and has strict but universal naming. 
-./check.sh <REPO> # verifies the validitiy of the local repository
-./copy.sh <sourceREPO> <destinationREPO> #copies the snapshots between two repositories ie 
-./prune.sh <REPO> # removes and prunes repositories as per a policy defined in the env file
-./snapshots.sh <REPO> #list snapshots in repo
+./main.sh backup <REPO> <METHOD> # Backup to the local repository, using method MAIN. as assigned in the env. "method" i,e what files are backed up is in configs and has strict but universal naming. 
+./main.sh check <REPO> # verifies the validitiy of the local repository
+./main.sh copy <sourceREPO> <destinationREPO> #copies the snapshots between two repositories ie 
+./main.sh prune <REPO> # removes and prunes repositories as per a policy defined in the env file
+./main.sh snapshots <REPO> #list snapshots in repo
 ```
 
 ### To-do
