@@ -9,8 +9,7 @@ declare -n POLICY=${1}_REMOVE_POLICY
 
 #IFS=',' read -a tags <<< "$2"
 
-echo "-"
-echo "-"
+echo ""
 echo "Forgetting and pruning ${1} snapshots according to retention policy ($(date))..."
 echo "Policy: ${POLICY}"
 echo "---------------------------"

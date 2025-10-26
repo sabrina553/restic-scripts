@@ -8,8 +8,7 @@ declare -n SOURCE_PASS=${1}_PASSWORD_FILE
 declare -n DEST_REPO=${2}_REPOSITORY_FILE
 declare -n DEST_PASS=${2}_PASSWORD_FILE
 
-echo "-"
-echo "-"
+echo ""
 echo "Running scheduled copy to raspberry-pi ($(date))..."
 echo "---------------------------"
 
