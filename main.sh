@@ -23,6 +23,10 @@ case $1 in
     snapshots)
         . functions/snapshots.sh "$2"
         ;;
+
+    remove)
+        . functions/remove.sh "$2" "$3"
+        ;;
    
     *)
         echo "Error: ${1} not recognised"
