@@ -1,5 +1,5 @@
 #!/bin/bash
-. /srv/restic-repo/scripts/unlock.sh "$1"
+. functions/unlock.sh "$1"
 
 #read input variable for repo
 declare -n REPO=${1}_REPOSITORY_FILE
@@ -13,7 +13,7 @@ echo ""
 echo "Running scheduled backup ($(date))..."
 echo "---------------------------"
 
-restic --repository-file="$REPO" --password-file="$PASS" backup --tag "$2" --exclude-file="$EXCLUDE" --files-from="$INCLUDE" --dry-run
+restic --repository-file="$REPO" --password-file="$PASS" backup --tag "$2" --exclude-file="$EXCLUDE" --files-from="$INCLUDE"
 
 echo ""
 echo "Finished scheduled backup $(date)"
