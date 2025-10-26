@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # run unlock script first (includes setting env vars)
-. /srv/restic-repo/scripts/sapphire_unlock.sh
+. /srv/restic-repo/scripts/unlock.sh SAPPHIRE
 
 echo "-"
 echo "-"
