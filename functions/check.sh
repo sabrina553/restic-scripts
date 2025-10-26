@@ -2,7 +2,7 @@
 # make Go garbage collector very aggresive in order to try to prevent out of memory issues
 export GOGC=20
 # run unlock script first (includes setting env vars)
-. /srv/restic-repo/scripts/unlock.sh "$1"
+. functions/unlock.sh "$1"
 
 declare -n REPO=${1}_REPOSITORY_FILE
 declare -n PASS=${1}_PASSWORD_FILE
