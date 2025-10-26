@@ -13,7 +13,7 @@ echo "-"
 echo "Running scheduled copy to raspberry-pi ($(date))..."
 echo "---------------------------"
 
-restic --repository-file=$DEST_REPO --password-file=$DEST_PASS copy --from-repository-file=$SOURCE_REPO --from-password-file=$SOURCE_PASS
+restic --repository-file="$DEST_REPO" --password-file="$DEST_PASS" copy --from-repository-file="$SOURCE_REPO" --from-password-file="$SOURCE_PASS"
 
 echo ""
 echo "Finished scheduled copy $(date)"
