@@ -1,5 +1,5 @@
 #!/bin/bash
-. /srv/restic-repo/scripts/unlock.sh "$1"
+. functions/unlock.sh "$1"
 
 #read input variable for repo
 declare -n REPO=${1}_REPOSITORY_FILE
