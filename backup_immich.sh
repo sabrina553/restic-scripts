@@ -1,5 +1,5 @@
 #!/bin/bash
-. /srv/restic-repo/scripts/sapphire_unlock.sh
+. /srv/restic-repo/scripts/unlock.sh SAPPHIRE
 
 echo "-"
 echo "-"
