@@ -1,5 +1,4 @@
 #!/bin/bash
-
 export RESTIC_CACHE_DIR="/root/.cache/restic/"
 
 # local info
