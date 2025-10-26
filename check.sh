@@ -15,7 +15,7 @@ echo "-"
 echo "Checking backup ($(date))..."
 echo "---------------------------"
 
-restic --repository-file=$REPO --password-file=$PASS check --cache-dir "${RESTIC_CACHE_DIR}" --cleanup-cache
+restic --repository-file="$REPO" --password-file="$PASS" check --cache-dir "$RESTIC_CACHE_DIR" --cleanup-cache
 
 echo ""
 echo "Finished checking backup $(date)"

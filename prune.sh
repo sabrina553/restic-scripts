@@ -16,7 +16,7 @@ echo "Policy: ${POLICY}"
 echo "---------------------------"
 
 
-restic --repository-file=${REPO} --password-file=${PASS} forget --keep-tag ${2} ${POLICY} --prune
+restic --repository-file="$REPO" --password-file="$PASS" forget --keep-tag "$2" "$POLICY" --prune
 
 
 #### not sure yet how I should be handling multiple tags in one repo 

@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# files to include/exclude/cache
-export RESTIC_INCLUDE_FILE_PATH="/srv/restic-repo/scripts/configs/include.txt"
-export RESTIC_EXCLUDE_FILE_PATH="/srv/restic-repo/scripts/configs/exclude.txt"
 export RESTIC_CACHE_DIR="/root/.cache/restic/"
 
 # local info
@@ -19,3 +16,9 @@ export RPI_REMOVE_POLICY="--keep-daily 30 --keep-weekly 8 --keep-monthly 12 --ke
 export SAPPHIRE_REPOSITORY_FILE="/srv/restic-repo/scripts/Identities/SAPPHIRE_REPO"
 export SAPPHIRE_PASSWORD_FILE="/srv/restic-repo/scripts/Identities/SAPPHIRE_PASSWORD"
 export SAPPHIRE_REMOVE_POLICY="--keep-daily 30 --keep-weekly 8 --keep-monthly 12 --keep-yearly 100 --keep-last 4"
+
+# files to include/exclude/cache
+export MAIN_INCLUDE_FILE_PATH="/srv/restic-repo/scripts/configs/MAIN_include"
+export MAIN_EXCLUDE_FILE_PATH="/srv/restic-repo/scripts/configs/MAIN_exclude"
+export IMMICH_INCLUDE_FILE_PATH="/srv/restic-repo/scripts/configs/IMMICH_include"
+export IMMICH_EXCLUDE_FILE_PATH="/srv/restic-repo/scripts/configs/IMMICH_exclude"
