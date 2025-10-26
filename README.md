@@ -49,3 +49,10 @@ moreover, and importantly as of the time of wrting, the local Identities directo
 ./prune.sh <REPO> # removes and prunes repositories as per a policy defined in the env file
 ./snapshots.sh <REPO> #list snapshots in repo
 ```
+
+### To-do
+
+- auto scrips for sapphire / immich
+- lowkey now I've done all this, I don't like that it uses long-form refrences and i'm 99% sure that means I need to revalute all these scripts, to essentially be called by a main file.
+- verify I can use these snapshots to recover 
+- not storing sensitive data in plain text would be great also
