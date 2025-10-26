@@ -1,0 +1,3 @@
+/opt/stacks
+/var/lib/docker/volumes
+/etc/fail2ban
