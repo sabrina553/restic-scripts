@@ -13,7 +13,7 @@ echo ""
 echo "Running scheduled backup ($(date))..."
 echo "---------------------------"
 
-restic --repository-file="$REPO" --password-file="$PASS" backup --tag "$2" --exclude-file="$EXCLUDE" --files-from="$INCLUDE" --dry-run
+restic --repository-file="$REPO" --password-file="$PASS" backup --tag "$2" --exclude-file="$EXCLUDE" --files-from="$INCLUDE"
 
 echo ""
 echo "Finished scheduled backup $(date)"
