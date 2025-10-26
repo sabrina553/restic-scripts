@@ -1,5 +1,5 @@
 #!/bin/bash
-. /srv/restic-repo/scripts/local_unlock.sh
+. /srv/restic-repo/scripts/unlock.sh LOCAL
 
 echo "-"
 echo "-"
