@@ -40,6 +40,24 @@ moreover, and importantly as of the time of wrting, the local Identities directo
 # Run restic check every Thursday at 14:30 (optionally schedule a system reboot in root's crontab 10 minutes before this runs >
 30 14 * * 4 bash /srv/restic-repo/scripts/main.sh check RPI >> /srv/restic-repo/scripts/logs/restic_backup.log 2>&1
 ```
+moreover, I found ultimately the best way to do asynchronous back-ups for sapphire, was to again utilise these scripts but by setting up an anacron system on my sapphire node, that then calls these script functions over ssh. 
+```bash
+
+@daily    10    ResticBackup  ./restic.sh backup
+@weekly   15    ResticCheck   ./restic.sh check
+@monthly  20    ResticPrune   ./restic.sh prune
+```
+In this instance restic.sh was a personalised script for the sapphire node
+`cat resticBACKUP.sh | ssh node1 >> logs/restic_backup.log 2>&1`
+similar to the main.sh in this (github) repository, I used a switch statement to essentially run this script in 3 different ways dependent on the input as you can see above, I don't believe it is neccesary for me publish these scripts. atleast at this time, I wanna take a break from restic for the time being. 
+
+the RHS of the script is essentially just running ssh to node1 (through publickey) logging the output to a local file, then running a few sets of commands as resticFUNCTION.sh that are specific to my usecase, using the established functions of this repository 
+
+```bash
+#!/bin/sh
+bash ./main.sh backup SAPPHIRE_IMMICH IMMICH 
+bash ./main.sh copy RPI SAPPHIRE
+```
 
 ### More examples
 ```bash
@@ -51,8 +69,6 @@ moreover, and importantly as of the time of wrting, the local Identities directo
 ```
 
 ### To-do
-
-- auto scrips for sapphire / immich
-- lowkey now I've done all this, I don't like that it uses long-form refrences and i'm 99% sure that means I need to revalute all these scripts, to essentially be called by a main file.
 - verify I can use these snapshots to recover 
 - not storing sensitive data in plain text would be great also
+- how does bash auto-complete from terminal? if I'm making an ease-of-life script, it would be nice to make my life easier... albeit ideally I will never have to touch these scripts again for the case of general use :D
