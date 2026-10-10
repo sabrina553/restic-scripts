@@ -11,7 +11,8 @@ export SAPPHIRE_REPOSITORY_FILE="identities/SAPPHIRE_REPO"
 export SAPPHIRE_PASSWORD_FILE="identities/SAPPHIRE_PASSWORD"
 export SAPPHIRE_REMOVE_POLICY="--keep-daily 30 --keep-weekly 8 --keep-monthly 12 --keep-yearly 100 --keep-last 4"
 
-# sapphire immich info
+# sapphire immich info: since 2026-10-10 this repo holds the DATA set (all of
+# DATADIR); the name stayed so the photos already in it are reused.
 export SAPPHIRE_IMMICH_REPOSITORY_FILE="identities/SAPPHIRE_IMMICH_REPO"
 export SAPPHIRE_IMMICH_PASSWORD_FILE="identities/SAPPHIRE_IMMICH_PASSWORD"
 export SAPPHIRE_IMMICH_REMOVE_POLICY="--keep-daily 30 --keep-weekly 8 --keep-monthly 12 --keep-yearly 100 --keep-last 4"
@@ -22,3 +23,6 @@ export MAIN_EXCLUDE_FILE_PATH="configs/MAIN_exclude"
 
 export IMMICH_INCLUDE_FILE_PATH="configs/IMMICH_include"
 export IMMICH_EXCLUDE_FILE_PATH="configs/IMMICH_exclude"
+
+export DATA_INCLUDE_FILE_PATH="configs/DATA_include"
+export DATA_EXCLUDE_FILE_PATH="configs/DATA_exclude"

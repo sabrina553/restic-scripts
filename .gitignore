@@ -1,2 +1,4 @@
 identities/*
 logs/*
+# hold this server's real data paths
+configs/DATA_*
