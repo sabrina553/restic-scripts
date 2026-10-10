@@ -1,6 +1,12 @@
 # Re-downloadable caches
 **/chaptarr/MediaCover
 **/immich/model-cache
+# GeoIP databases copied out of the CrowdSec image
+**/crowdsec/data/GeoLite2-*.mmdb
+
+# Logs written for CrowdSec (visitor IPs; rotated, not worth keeping)
+**/traefik-logs
+**/authelia-logs
 
 # Live database files: restored from /var/backups/db-dumps instead
 # (scripts/db-dump.sh in the docker repo). CouchDB stays: it's safe to copy live.
