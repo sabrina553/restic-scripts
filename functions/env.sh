@@ -1,10 +1,11 @@
 #!/bin/bash
 export RESTIC_CACHE_DIR="/root/.cache/restic/"
 
-# local info
+# local info: short history only (server space is tight); the PC repos keep
+# the long history.
 export LOCAL_REPOSITORY_FILE="identities/LOCAL_REPO"
 export LOCAL_PASSWORD_FILE="identities/LOCAL_PASSWORD"
-export LOCAL_REMOVE_POLICY="--keep-daily 30 --keep-weekly 8 --keep-monthly 12 --keep-yearly 100 --keep-last 4"
+export LOCAL_REMOVE_POLICY="--keep-daily 7 --keep-weekly 4 --keep-monthly 3 --keep-last 4"
 
 # sapphire main info
 export SAPPHIRE_REPOSITORY_FILE="identities/SAPPHIRE_REPO"
