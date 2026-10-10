@@ -72,3 +72,5 @@ bash ./main.sh copy RPI SAPPHIRE
 - verify I can use these snapshots to recover 
 - not storing sensitive data in plain text would be great also
 - how does bash auto-complete from terminal? if I'm making an ease-of-life script, it would be nice to make my life easier... albeit ideally I will never have to touch these scripts again for the case of general use :D
+- with all that said and done it might be nice to have this function like a proper bash command, and begin to integrate a full suite of quick to use commands
+- furthermore, can I make use of a better logging system, would be nice to have a more streamlined log files across the board. 

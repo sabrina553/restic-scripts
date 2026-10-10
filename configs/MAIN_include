@@ -1,3 +1,5 @@
-/opt/stacks
+/opt/docker
 /var/lib/docker/volumes
 /etc/fail2ban
+/var/backups/db-dumps
+/opt/docker_build

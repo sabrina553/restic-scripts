@@ -6,11 +6,6 @@ export LOCAL_REPOSITORY_FILE="identities/LOCAL_REPO"
 export LOCAL_PASSWORD_FILE="identities/LOCAL_PASSWORD"
 export LOCAL_REMOVE_POLICY="--keep-daily 30 --keep-weekly 8 --keep-monthly 12 --keep-yearly 100 --keep-last 4"
 
-# raspberry pi info
-export RPI_REPOSITORY_FILE="identities/RPI_REPO"
-export RPI_PASSWORD_FILE="identities/RPI_PASSWORD"
-export RPI_REMOVE_POLICY="--keep-daily 30 --keep-weekly 8 --keep-monthly 12 --keep-yearly 100 --keep-last 4"
-
 # sapphire main info
 export SAPPHIRE_REPOSITORY_FILE="identities/SAPPHIRE_REPO"
 export SAPPHIRE_PASSWORD_FILE="identities/SAPPHIRE_PASSWORD"
