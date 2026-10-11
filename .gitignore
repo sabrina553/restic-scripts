@@ -1,4 +1,6 @@
 identities/*
 logs/*
+# last exit code per repo and set (read by backup-verify.sh)
+state/
 # hold this server's real data paths
 configs/DATA_*

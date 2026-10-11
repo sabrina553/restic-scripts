@@ -14,6 +14,14 @@ echo "Running scheduled backup ($(date))..."
 echo "---------------------------"
 
 restic --repository-file="$REPO" --password-file="$PASS" backup --tag "$2" --exclude-file="$EXCLUDE" --files-from="$INCLUDE"
+rc=$?
+
+# Record the result for /opt/docker/scripts/backup-verify.sh: restic exits 3
+# when the snapshot was made but some files couldn't be read (a failing disk),
+# 1 when no snapshot was made. This script's own exit status is unchanged.
+mkdir -p state
+echo "$rc $(date +%s)" > "state/last-backup-$1-$2"
+echo "restic exit code: $rc"
 
 echo ""
 echo "Finished scheduled backup $(date)"
