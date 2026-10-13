@@ -7,13 +7,13 @@ export LOCAL_REPOSITORY_FILE="identities/LOCAL_REPO"
 export LOCAL_PASSWORD_FILE="identities/LOCAL_PASSWORD"
 export LOCAL_REMOVE_POLICY="--keep-daily 7 --keep-weekly 4 --keep-monthly 3 --keep-last 4"
 
-# sapphire main info
+# offsite PC: long history of the MAIN set
 export SAPPHIRE_REPOSITORY_FILE="identities/SAPPHIRE_REPO"
 export SAPPHIRE_PASSWORD_FILE="identities/SAPPHIRE_PASSWORD"
 export SAPPHIRE_REMOVE_POLICY="--keep-daily 30 --keep-weekly 8 --keep-monthly 12 --keep-yearly 100 --keep-last 4"
 
-# sapphire immich info: since 2026-10-10 this repo holds the DATA set (all of
-# DATADIR); the name stayed so the photos already in it are reused.
+# offsite PC: the DATA set. Formerly the IMMICH set; the name stayed so the
+# snapshots already in it are reused.
 export SAPPHIRE_IMMICH_REPOSITORY_FILE="identities/SAPPHIRE_IMMICH_REPO"
 export SAPPHIRE_IMMICH_PASSWORD_FILE="identities/SAPPHIRE_IMMICH_PASSWORD"
 export SAPPHIRE_IMMICH_REMOVE_POLICY="--keep-daily 30 --keep-weekly 8 --keep-monthly 12 --keep-yearly 100 --keep-last 4"
