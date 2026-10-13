@@ -1,0 +1,2 @@
+# One path per line, read by restic --files-from
+/srv/data

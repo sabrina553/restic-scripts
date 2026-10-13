@@ -1,0 +1,3 @@
+# Glob patterns, read by restic --exclude-file
+**/downloads
+**/torrents

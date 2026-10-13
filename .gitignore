@@ -2,5 +2,6 @@ identities/*
 logs/*
 # last exit code per repo and set (read by backup-verify.sh)
 state/
-# hold this server's real data paths
-configs/DATA_*
+# Real include/exclude lists hold this machine's paths; start from the *.example files
+configs/*
+!configs/*.example
