@@ -1,76 +1,61 @@
 # restic-scripts
-My personal restic back-up scripts 
 
-I wrote a nice README and it got lost in branch hell :) 
+My [restic](https://restic.net/) backup scripts: one entry point, `main.sh`, that runs backup, check, copy, prune and snapshot commands against any of my repositories, chosen by name on the command line.
 
-credit to github.com/linucksrox/restic-scripts/tree/main 
+Based on [linucksrox/restic-scripts](https://github.com/linucksrox/restic-scripts). Where mine differ is that every command takes the repository (and, for backups, the file set) as arguments, so one set of scripts serves several machines instead of one copy per machine.
 
-uniquely I have 3 nodes with various functions / limitations, and this script is an attempt of using input variables to discern between these scripts, while permiting unique requirements. 
+## How it fits together
 
-### In essence
+| Repository name | Where it lives | Holds |
+| --- | --- | --- |
+| `LOCAL` | On the server itself | Short history of the `MAIN` set (fast restores, little disk) |
+| `SAPPHIRE` | Offsite PC | Long history of the `MAIN` set |
+| `SAPPHIRE_IMMICH` | Offsite PC | The `DATA` set (photos and other personal data) |
 
-- Node 1  : ~ 300Gb Server, where I host docker stacks, their service's configuration files, and personal data...
-- Node 2  : ~ 128Gb Raspberry-pi, where I run Technitium from my router, and is always-on, which allows for a nice intermidate back-up
-- Node 3  : ~ 1TB My PC (linux), Where my pc is on/off, however provides a nice location for +100GB of photos, and the other personal data...
+| File set | What it backs up |
+| --- | --- |
+| `MAIN` | Docker config, volumes and database dumps (live database folders are excluded; they are restored from the dumps) |
+| `DATA` | The data directory, minus re-downloadable files |
 
-Hence these scripts hope to take advantage of restic (great software btw) to have periodic back-ups between nodes 1 -> 2, aswell as on-wake commands from 1,2 -> 3. 
+The server backs up to `LOCAL` on a schedule. The PC is not always on, so it does its part when it wakes: an anacron job on the PC runs these scripts on the server over SSH, backing up `DATA` and using `restic copy` to move snapshots into the PC's repositories.
 
-Where my scripts have diverged from linucksrox and are unique, is the use of input and environment variables to specify between these nodes.
-
-for example 
-
-`./main.sh copy LOCAL RPI` will copy the snapshots from my server to my raspberry pi, and flexibility of 2^3 inputs. 
-
-### Environment Variables 
-
-for anyone hoping to replicate, future self included, a quick glance of the env.sh and gitignore should lend to the configuration of these scripts. 
-
-moreover, and importantly as of the time of wrting, the local Identities directory stores sensitive data in plain text. Inshallah and good luck <3
-
-
-### CronJobs (Server-side)
-```bash
-# Run restic backup at 6:30 and 18:30 every day
-30 6,18 * * * bash /srv/restic-repo/scripts/main.sh backup LOCAL MAIN >> /srv/restic-repo/scripts/logs/restic_backup.log 2>&1
-# run raspi copy of snapshots at 7:00 and 19:00 every day
-0 7,19 * * * bash /srv/restic-repo/scripts/main.sh copy LOCAL RPI >> /srv/restic-repo/scripts/logs/restic_backup.log 2>&1
-
-# Run restic check every Thursday at 14:00 (optionally schedule a system reboot in root's crontab 10 minutes before this runs >
-0 14 * * 4 bash /srv/restic-repo/scripts/main.sh check LOCAL >> /srv/restic-repo/scripts/logs/restic_backup.log 2>&1
-# Run restic check every Thursday at 14:30 (optionally schedule a system reboot in root's crontab 10 minutes before this runs >
-30 14 * * 4 bash /srv/restic-repo/scripts/main.sh check RPI >> /srv/restic-repo/scripts/logs/restic_backup.log 2>&1
-```
-moreover, I found ultimately the best way to do asynchronous back-ups for sapphire, was to again utilise these scripts but by setting up an anacron system on my sapphire node, that then calls these script functions over ssh. 
-```bash
-
-@daily    10    ResticBackup  ./restic.sh backup
-@weekly   15    ResticCheck   ./restic.sh check
-@monthly  20    ResticPrune   ./restic.sh prune
-```
-In this instance restic.sh was a personalised script for the sapphire node
-`cat resticBACKUP.sh | ssh node1 >> logs/restic_backup.log 2>&1`
-similar to the main.sh in this (github) repository, I used a switch statement to essentially run this script in 3 different ways dependent on the input as you can see above, I don't believe it is neccesary for me publish these scripts. atleast at this time, I wanna take a break from restic for the time being. 
-
-the RHS of the script is essentially just running ssh to node1 (through publickey) logging the output to a local file, then running a few sets of commands as resticFUNCTION.sh that are specific to my usecase, using the established functions of this repository 
+## Usage
 
 ```bash
-#!/bin/sh
-bash ./main.sh backup SAPPHIRE_IMMICH IMMICH 
-bash ./main.sh copy RPI SAPPHIRE
+./main.sh backup    <REPO> <SET>    # e.g. ./main.sh backup LOCAL MAIN
+./main.sh check     <REPO>
+./main.sh copy      <SOURCE> <DEST> # copy snapshots between repositories
+./main.sh prune     <REPO>          # forget and prune using the repo's policy in env.sh
+./main.sh snapshots <REPO>
+./main.sh remove    <REPO> <ID>     # forget one snapshot
 ```
 
-### More examples
-```bash
-./main.sh backup <REPO> <METHOD> # Backup to the local repository, using method MAIN. as assigned in the env. "method" i,e what files are backed up is in configs and has strict but universal naming. 
-./main.sh check <REPO> # verifies the validitiy of the local repository
-./main.sh copy <sourceREPO> <destinationREPO> #copies the snapshots between two repositories ie 
-./main.sh prune <REPO> # removes and prunes repositories as per a policy defined in the env file
-./main.sh snapshots <REPO> #list snapshots in repo
-```
+Each backup writes `state/last-backup-<REPO>-<SET>` with restic's exit code and a timestamp, so a separate check can alert when a backup fails or stops running. restic exits `3` when a snapshot was made but some files could not be read, which is easy to miss in a log.
 
-### To-do
-- verify I can use these snapshots to recover 
-- not storing sensitive data in plain text would be great also
-- how does bash auto-complete from terminal? if I'm making an ease-of-life script, it would be nice to make my life easier... albeit ideally I will never have to touch these scripts again for the case of general use :D
-- with all that said and done it might be nice to have this function like a proper bash command, and begin to integrate a full suite of quick to use commands
-- furthermore, can I make use of a better logging system, would be nice to have a more streamlined log files across the board. 
+## Setting it up
+
+1. **Repositories and passwords:** for each repository, put its location in `identities/<NAME>_REPO` and its password in `identities/<NAME>_PASSWORD` (both git-ignored; make them readable by root only).
+2. **File sets:** copy each `configs/*.example` to the same name without `.example` and edit the paths. The real files are git-ignored because they describe the machine.
+3. **Policies:** retention per repository is in `functions/env.sh`.
+4. **Schedule**, for example in root's crontab:
+
+   ```bash
+   30 6,18 * * * bash /path/to/restic-scripts/main.sh backup LOCAL MAIN >> /path/to/restic-scripts/logs/restic_backup.log 2>&1
+   0 14 * * 4    bash /path/to/restic-scripts/main.sh check LOCAL       >> /path/to/restic-scripts/logs/restic_backup.log 2>&1
+   ```
+
+## What I learnt
+
+- **A backup is only as good as its last restore and its last alert.** The scripts ran happily for months; recording each exit code and checking it from elsewhere is what turns "probably fine" into "known fine".
+- **Back up dumps, not live database files.** Copying a running database's files gives you a snapshot that may not open. Dumping first and excluding the live folders is smaller and restores cleanly.
+- **Keep the long history where the disk is.** The server keeps a week or so; the PC with the big disk keeps years. `restic copy` makes that split cheap.
+- **Bash name references** (`declare -n REPO=${1}_REPOSITORY_FILE`) let one script pick its variables from an argument, which is what made the per-machine copies unnecessary.
+- **Keep machine-specific paths out of a public repo** from the start; it is far easier than rewriting history afterwards.
+
+## What I would do better
+
+- Test a full restore regularly, not just `restic check`.
+- Store passwords in something better than plain-text files (a root-only keyring or a secrets manager).
+- Validate arguments: an unknown repository name currently fails with an unhelpful restic error.
+- Add `set -euo pipefail` and run everything through [ShellCheck](https://www.shellcheck.net/).
+- Structured, rotated logs instead of one appended file, and shell completion for the repository names.
